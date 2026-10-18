@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fbf7ed">
+<meta name="description" content="ふたつの数字をえらんで10や11〜18をつくろう。時間制限のない、ちいさな計算パズル。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%229%22%20fill%3D%22%23267c72%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E10%3C%2Ftext%3E%3C%2Fsvg%3E">
+<title>10をつくろう！</title>
+<style>
+:root{--ink:#293f49;--muted:#697c7e;--paper:#fbf7ed;--orange:#ee744b;--teal:#267c72;--line:#e6e6d8;--shadow:#e3decc;font-family:ui-rounded,"Hiragino Maru Gothic ProN","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:var(--ink);background:#eceee5;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}button{font:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer;color:inherit}button:focus-visible{outline:3px solid #225ea8;outline-offset:5px}button:disabled{cursor:default}button{user-select:none;-webkit-user-select:none} [hidden]{display:none!important}
+.app{position:relative;max-width:470px;margin:auto;min-height:100vh;min-height:100svh;background:var(--paper);padding:calc(16px + env(safe-area-inset-top)) 24px calc(20px + env(safe-area-inset-bottom));overflow:hidden}
+.app:before{content:"";position:absolute;width:270px;height:270px;right:-155px;top:190px;border:38px solid #f0eddd;border-radius:50%;pointer-events:none;opacity:.6}
+.topbar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;height:44px;margin-bottom:18px}.brand{display:flex;white-space:nowrap;gap:8px;align-items:center;font-weight:900;font-size:15px;letter-spacing:.02em}.brand-mark{flex-shrink:0;display:grid;place-items:center;background:var(--teal);color:#fff;transform:rotate(-7deg);height:31px;width:31px;border-radius:10px;font-size:17px;box-shadow:0 3px 0 #195c55}.sound{white-space:nowrap;flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;border:1px solid #dedfd0;border-radius:24px;background:#fffaf0;font-size:12px;font-weight:bold;padding:0 12px}.sound svg{width:17px;height:17px}.sound .slash{display:initial}.sound[aria-pressed=true] .slash{display:none}
+.screen{position:relative}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--teal);margin:0 0 15px}.intro{text-align:center;padding-top:18px}.hero-title{font-size:31px;line-height:1.35;font-weight:900;letter-spacing:.02em;margin:0}.hero-title .big-ten{display:block;font-size:100px;line-height:1.15;letter-spacing:-.06em;color:var(--orange);text-shadow:0 5px 0 #f4ddc9;position:relative}.hero-title .big-ten:before,.hero-title .big-ten:after{content:"✦";position:absolute;font-size:25px;color:#e6b953;top:40px}.hero-title .big-ten:before{left:62px}.hero-title .big-ten:after{right:57px;font-size:17px;top:68px}.intro-copy{font-size:14px;line-height:1.95;margin:20px 0 0;font-weight:600}.sample{display:flex;align-items:center;justify-content:center;gap:13px;margin:32px 0 25px}.sample-tile{display:grid;place-items:center;width:78px;height:84px;border-radius:23px;font-size:47px;font-weight:900;box-shadow:0 6px 0 var(--edge);background:var(--tile);transform:rotate(-7deg);border:2px solid #ffffffaa}.sample-tile:last-child{transform:rotate(8deg)}.sample-plus{font-size:30px;color:#8faaa0}.tag{display:inline-flex;align-items:center;gap:7px;color:var(--teal);font-size:12px;font-weight:700;border:1px solid #d9e1d4;border-radius:20px;padding:8px 14px;background:#f1f4e8}.tag svg{width:15px;height:15px}.primary{width:100%;min-height:58px;border:0;border-radius:20px;background:var(--teal);color:white;box-shadow:0 5px 0 #185c54;font-weight:800;font-size:19px;letter-spacing:.08em;transition:transform .12s,box-shadow .12s}.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #185c54}.start{margin-top:31px}.under-note{font-size:12px;color:var(--muted);margin:20px 0 0;line-height:1.7}.tiny-footer{text-align:center;font-size:10px;color:#87928b;letter-spacing:.14em;margin-top:24px}
+.game-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 16px}.game-head h1{font-size:23px;letter-spacing:.01em;margin:0;font-weight:900}.scorebox{text-align:right}.score-label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.1em;display:block}.score-value{font-size:25px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.25}.journey{padding:14px 16px;background:#fffdf6;border:1px solid var(--line);border-radius:19px;margin-bottom:18px}.journey-top{display:flex;align-items:baseline;justify-content:space-between;font-size:12px;font-weight:800;margin-bottom:10px}.journey-top b{font-size:17px;color:var(--teal);margin-right:2px}.progress-dots{display:flex;justify-content:space-between;gap:5px}.dot{display:grid;place-items:center;width:23px;height:23px;flex:0 1 23px;background:#eeeee2;border-radius:50%;color:transparent;font-size:14px;font-weight:900}.dot.done{background:#f4bb59;color:#72490d;box-shadow:0 2px 0 #e7a541}.dot.just{animation:stamp .35s ease-out}
+.equation-wrap{text-align:center;margin-bottom:16px}.equation{display:flex;justify-content:center;align-items:center;gap:10px;font-size:25px;font-weight:800;min-height:51px}.slot{display:grid;place-items:center;width:47px;height:48px;border-radius:14px;background:#f0eee3;border:2px dashed #cecfc0;color:#9ba79d;font-size:28px}.slot.filled{color:var(--ink);background:#fff;border-style:solid;border-color:#bdcfc5}.equals{color:#8fa299}.target{font-size:36px;color:var(--teal);min-width:45px}.status{height:24px;margin:10px 0 0;font-size:13px;color:var(--muted);font-weight:700;line-height:24px}.status.success{color:var(--teal)}.status.retry{color:#a35d39}
+.board-shell{position:relative;background:#e9eada;padding:8px;border:1px solid #dfe2d1;border-radius:26px;box-shadow:0 5px 0 #d9decb;max-width:372px;margin:0 auto}.board{position:relative;width:100%;aspect-ratio:1;isolation:isolate}.tile{--tile:#ffe0bd;--edge:#e6b889;position:absolute;left:calc(var(--col)*25% + 4px);top:calc(var(--row)*25% + 4px);width:calc(25% - 8px);height:calc(25% - 10px);display:grid;place-items:center;border:2px solid #ffffffa8;border-radius:19px;background:var(--tile);box-shadow:0 4px 0 var(--edge);font-size:clamp(30px,10vw,45px);font-weight:900;line-height:1;transition:background .15s,box-shadow .15s;z-index:1}.tile .digit{pointer-events:none;transform:translateY(-1px)}.tile:before{content:"";position:absolute;top:8px;left:10px;width:12px;height:4px;border-radius:5px;background:#ffffff70}.tone-0{--tile:#ffdcb9;--edge:#dfb48b}.tone-1{--tile:#c7e6d9;--edge:#9fcbbb}.tone-2{--tile:#ffe8a3;--edge:#ddc27d}.tone-3{--tile:#d5ddf4;--edge:#b1bddb}.tile.selected{background:#fffdf4;box-shadow:0 4px 0 var(--teal),inset 0 0 0 3px var(--teal);border-color:var(--teal);transform:translateY(-3px);z-index:3}.tile.selected:after{content:"✓";position:absolute;right:4px;top:3px;font-size:11px;border-radius:50%;background:var(--teal);color:white;width:17px;height:17px;display:grid;place-items:center}.tile.hint{animation:hintPulse .8s ease-in-out infinite;z-index:2}.tile.vanish{animation:popOut .31s ease-in forwards;z-index:5}.tile.wrong{animation:nudge .28s ease-out}.board-shell:has(.vanish){border-color:#bdcfc5}.board-shell .burst-label{position:absolute;z-index:10;pointer-events:none;top:40%;left:0;right:0;text-align:center;font-size:31px;font-weight:900;color:white;text-shadow:0 2px 0 #17665c,2px 0 0 #17665c,-2px 0 0 #17665c,0 -2px 0 #17665c;animation:floatUp .65s both}.board-shell .burst-label small{font-size:16px;display:block;margin-top:5px}.game-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:21px}.combo-label{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:800}.combo-icon{display:grid;place-items:center;width:33px;height:33px;border-radius:12px;background:#f8e6bd;color:#a1732b;font-size:20px}.combo-count{font-size:20px;color:var(--teal);font-variant-numeric:tabular-nums}.hint-button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 14px;background:#fffdf5;border:1px solid #d9decb;border-radius:16px;font-size:13px;font-weight:800}.hint-button svg{height:18px;width:18px;color:#a17d38}.game-foot{text-align:center;font-size:11px;color:var(--muted);margin:17px 0 0}
+.result{text-align:center;padding-top:24px}.medal{position:relative;display:grid;place-items:center;width:126px;height:126px;background:#f9d16d;border:8px solid #ffedac;border-radius:50%;box-shadow:0 5px 0 #e5b75e;margin:20px auto 29px;color:#805621;font-size:64px;font-weight:900}.medal:after{content:"✦";position:absolute;right:-20px;top:-15px;font-size:28px;color:#e3a345}.result h1{font-size:32px;line-height:1.45;margin:0 0 9px;font-weight:900}.result-copy{font-size:14px;color:var(--muted);line-height:1.8;margin:0 0 24px}.result-card{background:#fffdf7;border:1px solid var(--line);border-radius:24px;padding:22px 18px;margin-bottom:26px}.result-card .score-label{font-size:12px}.result-score{font-size:52px;font-weight:900;letter-spacing:-.03em;line-height:1.35;color:var(--teal)}.result-stats{display:flex;justify-content:center;gap:25px;border-top:1px solid var(--line);margin-top:13px;padding-top:17px;font-size:12px;color:var(--muted)}.result-stats b{display:block;font-size:21px;color:var(--ink);margin-top:5px}.secondary{min-height:44px;background:transparent;border:0;font-size:13px;font-weight:700;color:var(--muted);margin-top:14px;padding:8px 20px}.confetti{position:absolute;z-index:12;pointer-events:none;top:-30px;width:9px;height:14px;border-radius:3px;animation:rain 2s ease-in forwards}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@keyframes stamp{0%{transform:scale(.5)}65%{transform:scale(1.25)}100%{transform:scale(1)}}@keyframes hintPulse{50%{box-shadow:0 4px 0 var(--edge),inset 0 0 0 3px #92752b;filter:brightness(1.08)}}@keyframes popOut{35%{transform:scale(1.1)}100%{transform:scale(.25);opacity:0}}@keyframes nudge{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}@keyframes floatUp{0%{opacity:0;transform:translateY(20px) scale(.8)}30%{opacity:1;transform:translateY(0) scale(1.06)}85%{opacity:1}100%{opacity:0;transform:translateY(-35px)}}@keyframes rain{0%{opacity:1;transform:translate3d(0,-30px,0) rotate(0)}100%{opacity:0;transform:translate3d(var(--drift),640px,0) rotate(550deg)}}
+@media(min-width:600px){body{padding:28px 0;background:radial-gradient(circle at 20% 25%,#dce8db 0,transparent 34%),radial-gradient(circle at 80% 75%,#f1dfc9 0,transparent 37%),#eeeee5}.app{min-height:790px;border-radius:35px;box-shadow:0 18px 70px #53675418;border:1px solid #ffffff}}
+@media(max-height:740px) and (max-width:599px){.app{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:calc(12px + env(safe-area-inset-bottom))}.topbar{margin-bottom:10px}.game-head{margin-bottom:10px}.journey{padding:10px 14px;margin-bottom:12px}.equation-wrap{margin-bottom:10px}.status{margin-top:5px}.board-shell{max-width:320px}.game-bottom{margin-top:15px}.game-foot{margin-top:10px}.intro{padding-top:7px}.hero-title .big-ten{font-size:84px}.intro-copy{margin-top:14px}.sample{margin:24px 0}.start{margin-top:23px}.tiny-footer{margin-top:17px}.result{padding-top:5px}.medal{margin:12px auto 22px;width:105px;height:105px;font-size:51px}.result-card{padding:17px;margin-bottom:20px}}
+@media(max-height:740px) and (max-width:599px){.topbar{margin-bottom:6px}.game-head{margin:0 0 8px}.game-head h1{font-size:21px;line-height:1.25}.score-label{line-height:1.2}.score-value{font-size:22px;line-height:1}.journey{padding:8px 12px;margin-bottom:8px}.journey-top{line-height:1.2;margin-bottom:6px}.journey-top b{font-size:15px;line-height:1}.dot{width:19px;height:19px;flex-basis:19px;font-size:12px}.equation-wrap{margin-bottom:8px}.equation{min-height:40px;font-size:23px;line-height:1}.slot{width:42px;height:40px;font-size:26px}.target{font-size:31px}.status{height:20px;line-height:20px;margin-top:4px;font-size:12px}.board-shell{max-width:min(320px,calc(100svh - 332px))}.game-bottom{margin-top:12px}.game-foot{margin-top:8px;line-height:1.35;font-size:10px}}
+@media(max-width:350px){.brand{font-size:12px;gap:5px}.sound{font-size:11px;padding:0 10px}.app{padding-left:16px;padding-right:16px}.game-head h1{font-size:21px}.tile{border-radius:15px}.hero-title .big-ten:before{left:35px}.hero-title .big-ten:after{right:32px}.progress-dots{gap:3px}.game-foot{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.tile.hint{outline:3px solid #92752b;outline-offset:-6px}}
+.hard-start{display:block;width:100%;min-height:58px;margin-top:14px;border:2px solid #e7b98e;border-radius:19px;background:#fff2e2;color:#754a27;box-shadow:0 4px 0 #e3c19d;font-size:18px;font-weight:900;touch-action:manipulation}.hard-start:active{transform:translateY(3px);box-shadow:0 1px 0 #e3c19d}.hard-start small{display:block;font-size:12px;font-weight:700;line-height:1.2;margin-top:2px}
+.carry-start{display:block;width:100%;min-height:58px;margin-top:14px;border:2px solid #a5cbbb;border-radius:19px;background:#e6f4ec;color:#226459;box-shadow:0 4px 0 #b5d6c8;font-size:18px;font-weight:900;touch-action:manipulation}.carry-start:active{transform:translateY(3px);box-shadow:0 1px 0 #b5d6c8}.carry-start small{display:block;font-size:12px;font-weight:700;line-height:1.2;margin-top:2px}
+.carry-label{font-size:11px;letter-spacing:.04em;color:var(--teal);font-weight:800;text-align:center;margin:0 0 6px}
+</style>
+</head>
+<body>
+<main class="app" id="app">
+  <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">10</span>ちいさな すうじパズル</div><button class="sound" id="sound" aria-label="おとを つける" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM17 8q4 4 0 8"/><path class="slash" d="m3 3 18 18"/></svg><span id="soundLabel">おと OFF</span></button></header>
+  <section class="screen intro" id="titleScreen" aria-labelledby="titleHeading">
+    <p class="eyebrow">あわせて、ぴったり。</p>
+    <h1 class="hero-title" id="titleHeading"><span class="big-ten">10</span>を つくろう！</h1>
+    <p class="intro-copy">すうじを ふたつ えらんで<br>ぴったり 10 に できるかな？</p>
+    <div class="sample" aria-label="7 たす 3 は 10"><span class="sample-tile tone-0">7</span><span class="sample-plus">＋</span><span class="sample-tile tone-1">3</span></div>
+    <div class="tag"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 5v5l3 2"/></svg>いそがなくて だいじょうぶ</div>
+    <button class="primary start" id="start">ふつうで あそぶ</button>
+    <button class="carry-start" id="carryStart">くりあがり <small>11〜18 を つくろう</small></button>
+    <button class="hard-start" id="hardStart">むずかしい <small>となりの すうじだけ</small></button>
+    <p class="under-note">10もん できたら クリア！</p>
+    <p class="tiny-footer">10をつくろう！ · v1.2</p>
+  </section>
+  <section class="screen game" id="gameScreen" hidden aria-labelledby="gameHeading">
+    <div class="game-head"><h1 id="gameHeading">10を つくろう！</h1><div class="scorebox"><span class="score-label">スコア</span><span class="score-value" id="score">0</span></div></div>
+    <div class="journey"><div class="journey-top"><span id="progressLabel">あつめた 10</span><span><b id="cleared">0</b> / 10こ</span></div><div class="progress-dots" id="progress" aria-hidden="true"></div></div>
+    <div class="equation-wrap"><p class="carry-label" id="carryLabel" hidden>この かずを つくろう！</p><div class="equation" aria-hidden="true"><span class="slot" id="first">?</span><span class="equals">＋</span><span class="slot" id="second">?</span><span class="equals">＝</span><span class="target" id="sum">10</span></div><p class="status" id="status" role="status" aria-live="polite">どこでも ふたつ えらんでね</p></div>
+    <div class="board-shell" id="boardShell"><div class="board" id="board" role="group" aria-label="4かける4の すうじ。ふたつ えらんで10にしよう"></div></div>
+    <div class="game-bottom"><div class="combo-label"><span class="combo-icon" aria-hidden="true">✦</span><span><b class="combo-count" id="combo">0</b> コンボ</span></div><button class="hint-button" id="hint"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 14v-2a5 5 0 1 1 6 0v2zM7 17h6M8 19h4"/></svg>ヒント</button></div>
+    <p class="game-foot" id="gameFoot">はなれた すうじも OK ・ えらんだ マスを おすと もどせる</p>
+  </section>
+  <section class="screen result" id="resultScreen" hidden aria-labelledby="resultHeading">
+    <p class="eyebrow" id="resultEyebrow">10こ、できたね！</p><div class="medal" aria-hidden="true">10</div>
+    <h1 id="resultHeading" tabindex="-1">クリア！</h1><p class="result-copy" id="resultCopy">すうじの ペアを<br>いっぱい みつけたね。</p>
+    <div class="result-card"><span class="score-label">こんかいの スコア</span><div class="result-score" id="resultScore">0</div><div class="result-stats"><div><span id="resultSolvedLabel">つくった 10</span><b id="resultSolved">10こ</b></div><div>さいこう コンボ<b id="resultCombo">0</b></div></div></div>
+    <button class="primary" id="retry">もういっかい <span aria-hidden="true">↻</span></button><button class="secondary" id="home">はじめに もどる</button>
+  </section>
+  <noscript>このゲームを あそぶには、ブラウザの JavaScriptを オンにしてください。</noscript>
+</main>
+<script>
+/* 10をつくろう！ v1.2 — dependency-free, offline-ready single HTML.
+ * Normal: any two distinct tiles totaling 10. Hard: only orthogonally adjacent tiles.
+ * Carry: any two tiles totaling the displayed target (11-18), target changes each match.
+ * Points: 100 + 20 * (streak-1), bonus capped at +100. No negative points.
+ * Hint preserves streak. Wrong pair resets streak but does not deduct points.
+ */
+(() => {
+ 'use strict';
+ const $ = id => document.getElementById(id);
+ const GOAL=10, SIZE=4;
+ const state={board:[],selected:null,locked:false,score:0,combo:0,maxCombo:0,cleared:0,phase:'title',mode:'normal',target:10,nextId:1};
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ let audio=null, soundOn=false, hintTimer=null;
+ const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ const digit=()=>1+Math.floor(Math.random()*9);
+ const carryTarget=(previous=null)=>{
+  // Pick one of 11-18, excluding the previous target so each round changes.
+  const hadCarryTarget=previous>=11 && previous<=18;
+  const candidate=11+Math.floor(Math.random()*(hadCarryTarget?7:8));
+  return hadCarryTarget && candidate>=previous?candidate+1:candidate;
+ };
+ const makeTile=value=>({id:state.nextId++,value,tone:Math.floor(Math.random()*4)});
+ function neighbors(i,j){return Math.abs(Math.floor(i/SIZE)-Math.floor(j/SIZE))+Math.abs(i%SIZE-j%SIZE)===1;}
+ function findPair(board,mode='normal',target=10){
+  for(let i=0;i<board.length;i++) for(let j=i+1;j<board.length;j++)
+   if(board[i].value+board[j].value===target && (mode!=='hard'||neighbors(i,j))) return [i,j];
+  return null;
+ }
+ function ensurePair(board, freshIndices,mode='normal',target=10){
+  if(findPair(board,mode,target)) return false;
+  if(mode==='carry' && freshIndices.length>=2){
+   // A carry question must be possible without changing surviving numbers.
+   const smallest=Math.max(1,target-9), largest=Math.min(9,target-1);
+   const first=smallest+Math.floor(Math.random()*(largest-smallest+1));
+   board[freshIndices[0]].value=first;
+   board[freshIndices[1]].value=target-first;
+   return true;
+  }
+  // Preserve v1.1's single-tile guarantee for the two original modes.
+  const chosen=freshIndices[0] ?? 0;
+  const partner=board.findIndex((_,i)=>i!==chosen && (mode!=='hard'||neighbors(chosen,i)));
+  board[chosen].value=target-board[partner].value;
+  return true;
+ }
+ // Survivors remain in their own column and retain vertical order.
+ function refill(board,removedIds){
+  const next=Array(16), fromRows=new Map(), fresh=[];
+  for(let col=0;col<SIZE;col++){
+   const survivors=[];
+   for(let row=0;row<SIZE;row++){
+    const tile=board[row*SIZE+col];
+    if(!removedIds.has(tile.id)){survivors.push(tile);fromRows.set(tile.id,row);}
+   }
+   const missing=SIZE-survivors.length;
+   for(let row=0;row<SIZE;row++){
+    const index=row*SIZE+col;
+    if(row<missing){next[index]=makeTile(digit());fresh.push(index);fromRows.set(next[index].id,row-missing);}
+    else next[index]=survivors[row-missing];
+   }
+  }
+  const nextTarget=state.mode==='carry'?carryTarget(state.target):10;
+  ensurePair(next,fresh,state.mode,nextTarget);
+  return {board:next,fromRows,fresh,target:nextTarget};
+ }
+ function showScreen(name){
+  for(const key of ['title','game','result']) $(key+'Screen').hidden=key!==name;
+  state.phase=name;
+ }
+ function say(text,kind=''){ $('status').textContent=text;$('status').className='status '+kind; }
+ function equation(a=null,b=null,total=state.target){
+  for(const [id,value] of [['first',a],['second',b]]){
+   $(id).textContent=value ?? '?';$(id).classList.toggle('filled',value!==null);
+  }
+  $('sum').textContent=total;
+ }
+ function updateStats(){
+  $('score').textContent=state.score.toLocaleString('ja-JP');
+  $('combo').textContent=state.combo;$('cleared').textContent=state.cleared;
+  for(let i=0;i<GOAL;i++) $('progress').children[i].className='dot'+(i<state.cleared?' done':'')+(i===state.cleared-1?' just':'');
+ }
+ function clearHints(){clearTimeout(hintTimer);document.querySelectorAll('.tile.hint').forEach(el=>el.classList.remove('hint'));}
+ function setLocked(value){state.locked=value;$('hint').disabled=value;}
+ function renderBoard(fromRows){
+  const fragment=document.createDocumentFragment();
+  state.board.forEach((tile,i)=>{
+   const button=document.createElement('button');
+   button.className='tile tone-'+tile.tone;button.type='button';button.dataset.id=tile.id;
+   button.setAttribute('aria-label',tile.value+'、'+(Math.floor(i/4)+1)+'だんめ '+(i%4+1)+'ばんめ');button.setAttribute('aria-pressed','false');
+   button.style.setProperty('--row',Math.floor(i/4));button.style.setProperty('--col',i%4);
+   const number=document.createElement('span');number.className='digit';number.textContent=tile.value;button.append(number);
+   button.addEventListener('click',()=>choose(tile.id));fragment.append(button);
+  });
+  $('board').replaceChildren(fragment);
+  if(fromRows && !reduced){
+   const step=$('board').clientWidth/4;
+   [...$('board').children].forEach((el,i)=>{
+    const distance=(fromRows.get(Number(el.dataset.id))-Math.floor(i/4))*step;
+    if(distance) el.animate([{transform:`translateY(${distance}px)`,opacity:distance<=-step?0.35:1},{transform:'translateY(0)',opacity:1}],{duration:300,easing:'cubic-bezier(.22,.8,.35,1)'});
+   });
+  }
+ }
+ function tileElement(id){return $('board').querySelector(`[data-id="${id}"]`);}
+ function promptForRound(){
+  return state.mode==='hard'?'となりあう ふたつで 10 にしよう':state.mode==='carry'?state.target+' に なる ふたつを えらんでね':'どこでも ふたつ えらんでね';
+ }
+ function updateModeText(){
+  $('gameHeading').textContent=state.mode==='hard'?'となりで 10！':state.mode==='carry'?state.target+'を つくろう！':'10を つくろう！';
+  $('progressLabel').textContent=state.mode==='carry'?'できた かず':'あつめた 10';
+  $('carryLabel').hidden=state.mode!=='carry';
+  $('board').setAttribute('aria-label',state.mode==='hard'?'4かける4の すうじ。たてか よこに となりあう2枚で10にしよう':state.mode==='carry'?'4かける4の すうじ。ふたつ えらんで、ひょうじされた かずを つくろう':'4かける4の すうじ。ふたつ えらんで10にしよう');
+  $('gameFoot').textContent=state.mode==='hard'?'たて・よこで となりの すうじを えらぼう':state.mode==='carry'?'こたえは まいかい かわるよ ・ どこでも OK':'はなれた すうじも OK ・ えらんだ マスを おすと もどせる';
+ }
+ function start(mode=state.mode){
+  clearHints();document.querySelectorAll('.confetti,.burst-label').forEach(el=>el.remove());
+  Object.assign(state,{selected:null,locked:false,score:0,combo:0,maxCombo:0,cleared:0,mode,target:mode==='carry'?carryTarget():10});
+  state.board=Array.from({length:16},()=>makeTile(digit()));ensurePair(state.board,[0,1],mode,state.target);
+  $('progress').replaceChildren(...Array.from({length:GOAL},()=>{const dot=document.createElement('span');dot.className='dot';dot.textContent='✦';return dot;}));
+  updateModeText();
+  showScreen('game');equation();say(promptForRound());setLocked(false);updateStats();renderBoard();
+  if(soundOn) play('start');
+ }
+ async function choose(id){
+  if(state.phase!=='game'||state.locked) return;
+  clearHints();
+  const tile=state.board.find(t=>t.id===id);if(!tile) return;
+  if(state.selected===id){state.selected=null;tileElement(id).classList.remove('selected');tileElement(id).setAttribute('aria-pressed','false');equation();say(promptForRound());return;}
+  if(state.selected!==null && state.mode==='hard'){
+   const firstIndex=state.board.findIndex(t=>t.id===state.selected),secondIndex=state.board.findIndex(t=>t.id===id);
+   if(!neighbors(firstIndex,secondIndex)){say('とおいよ。たて・よこの となりを えらんでね','retry');tileElement(id).classList.add('wrong');setTimeout(()=>tileElement(id)?.classList.remove('wrong'),300);return;}
+  }
+  tileElement(id).classList.add('selected');tileElement(id).setAttribute('aria-pressed','true');
+  if(state.selected===null){state.selected=id;equation(tile.value);say(tile.value+' と、どれに する？');play('tap');return;}
+  const first=state.board.find(t=>t.id===state.selected), ids=[first.id,id];
+  setLocked(true);equation(first.value,tile.value,first.value+tile.value);
+  if(first.value+tile.value!==state.target){
+   state.combo=0;updateStats();say(first.value+' ＋ '+tile.value+' ＝ '+(first.value+tile.value)+'。'+state.target+'を つくろう！','retry');
+   ids.forEach(key=>tileElement(key).classList.add('wrong'));play('wrong');
+   await sleep(reduced?400:700);
+   ids.forEach(key=>{const el=tileElement(key);el.classList.remove('selected','wrong');el.setAttribute('aria-pressed','false');});
+   state.selected=null;equation();say('だいじょうぶ。'+state.target+'を さがそう');setLocked(false);return;
+  }
+  state.combo++;state.maxCombo=Math.max(state.maxCombo,state.combo);state.cleared++;
+  const earned=100+Math.min(state.combo-1,5)*20;state.score+=earned;updateStats();
+  say(first.value+' ＋ '+tile.value+' ＝ '+state.target+'。ぴったり！','success');play('correct');
+  ids.forEach(key=>tileElement(key).classList.add('vanish'));
+  const burst=document.createElement('div');burst.className='burst-label';burst.setAttribute('aria-hidden','true');burst.textContent=state.combo>=2?state.combo+' コンボ！':'ぴったり！';
+  const bonus=document.createElement('small');bonus.textContent='＋'+earned;burst.append(bonus);$('boardShell').append(burst);
+  await sleep(reduced?80:310);
+  if(state.cleared===GOAL){await sleep(reduced?150:350);burst.remove();finish();return;}
+  const next=refill(state.board,new Set(ids));state.board=next.board;state.target=next.target;state.selected=null;updateModeText();renderBoard(next.fromRows);
+  await sleep(reduced?80:320);burst.remove();
+  equation();say(state.mode==='carry'?promptForRound():state.combo>=2?state.combo+' コンボ！ そのちょうし！':'できたね！ つぎの 10 を さがそう','success');setLocked(false);
+ }
+ function hint(){
+  if(state.phase!=='game'||state.locked) return;
+  clearHints();
+  let pair=null;
+  if(state.selected!==null){
+   const i=state.board.findIndex(t=>t.id===state.selected), j=state.board.findIndex((t,k)=>k!==i && (state.mode!=='hard'||neighbors(i,k)) && t.value+state.board[i].value===state.target);
+   if(j!==-1) pair=[i,j];
+  }
+  if(!pair){
+   if(state.selected!==null){const el=tileElement(state.selected);el.classList.remove('selected');el.setAttribute('aria-pressed','false');state.selected=null;equation();}
+   pair=findPair(state.board,state.mode,state.target);
+  }
+  if(!pair) return;
+  pair.forEach(i=>tileElement(state.board[i].id).classList.add('hint'));say('ぴかぴかの ふたつを みてみよう');hintTimer=setTimeout(clearHints,3500);
+ }
+ function finish(){
+  clearHints();$('resultScore').textContent=state.score.toLocaleString('ja-JP');$('resultCombo').textContent=state.maxCombo+' コンボ';
+  const carry=state.mode==='carry';
+  $('resultEyebrow').textContent=carry?'くりあがり 10もん、できたね！':'10こ、できたね！';
+  $('resultCopy').innerHTML=carry?'くりあがりの けいさんを<br>いっぱい がんばったね。':'すうじの ペアを<br>いっぱい みつけたね。';
+  $('resultSolvedLabel').textContent=carry?'といた もんだい':'つくった 10';
+  $('resultSolved').textContent=carry?'10もん':'10こ';
+  showScreen('result');$('resultHeading').focus({preventScroll:true});play('finish');
+  if(reduced) return;
+  for(let i=0;i<30;i++){
+   const piece=document.createElement('i');piece.className='confetti';piece.setAttribute('aria-hidden','true');
+   piece.style.left=(5+Math.random()*90)+'%';piece.style.background=['#ed885e','#8dbfa6','#edc75c','#a7b4d9'][i%4];piece.style.setProperty('--drift',(Math.random()*120-60)+'px');piece.style.animationDelay=(Math.random()*.55)+'s';
+   $('app').append(piece);setTimeout(()=>piece.remove(),2700);
+  }
+ }
+ function play(kind){
+  if(!soundOn) return;
+  try{
+   const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio) return;
+   if(!audio) audio=new Audio();if(audio.state==='suspended') audio.resume().catch(()=>{});
+   const notes={tap:[520],wrong:[330,294],correct:[523,659,784],start:[523,784],finish:[523,659,784,1047]}[kind];
+   const now=audio.currentTime;
+   notes.forEach((freq,i)=>{const osc=audio.createOscillator(),gain=audio.createGain(),time=now+i*.085;osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(0,time);gain.gain.linearRampToValueAtTime(.06,time+.012);gain.gain.exponentialRampToValueAtTime(.001,time+.18);osc.connect(gain);gain.connect(audio.destination);osc.start(time);osc.stop(time+.2);});
+  }catch(_){/* Audio must never stop a round. */}
+ }
+ $('start').addEventListener('click',()=>start('normal'));$('carryStart').addEventListener('click',()=>start('carry'));$('hardStart').addEventListener('click',()=>start('hard'));$('retry').addEventListener('click',()=>start());$('hint').addEventListener('click',hint);
+ $('home').addEventListener('click',()=>{showScreen('title');$('start').focus({preventScroll:true});});
+ $('sound').addEventListener('click',()=>{soundOn=!soundOn;$('sound').setAttribute('aria-pressed',String(soundOn));$('sound').setAttribute('aria-label',soundOn?'おとを けす':'おとを つける');$('soundLabel').textContent=soundOn?'おと ON':'おと OFF';if(soundOn)play('tap');});
+ // Optional browser-native agent interface. Safari simply skips this block.
+ if(document.modelContext?.registerTool){
+  const lifecycle=new AbortController();
+  const readState=()=>({phase:state.phase,mode:state.mode,target:state.target,busy:state.locked,score:state.score,combo:state.combo,cleared:state.cleared,selected:state.selected,tiles:state.board.map((t,i)=>({id:t.id,value:t.value,row:Math.floor(i/4)+1,column:i%4+1}))});
+  const definitions=[
+   {name:'read_puzzle',description:'Read the current puzzle and round progress.',annotations:{readOnlyHint:true},inputSchema:{type:'object',properties:{},additionalProperties:false},execute:()=>readState()},
+   {name:'start_puzzle',description:'Start a normal round from the title or result screen.',inputSchema:{type:'object',properties:{},additionalProperties:false},execute:()=>{if(state.phase==='game')throw Error('A round is already in progress.');start('normal');return readState();}},
+   {name:'select_number_tile',description:'Tap one tile by its ID, using the same selection and matching rules as the screen.',inputSchema:{type:'object',properties:{tileId:{type:'integer'}},required:['tileId'],additionalProperties:false},execute:async input=>{if(!input||!Number.isInteger(input.tileId)||Object.keys(input).some(k=>k!=='tileId'))throw Error('A valid tileId is required.');if(state.phase!=='game'||state.locked||!state.board.some(t=>t.id===input.tileId))throw Error('This tile cannot be selected now.');await choose(input.tileId);return readState();}}
+  ];
+  for(const tool of definitions){try{Promise.resolve(document.modelContext.registerTool({...tool,annotations:{readOnlyHint:false,untrustedContentHint:false,...tool.annotations}},{signal:lifecycle.signal})).catch(()=>{});}catch(_){}}
+  addEventListener('pagehide',event=>{if(!event.persisted)lifecycle.abort();},{once:true});
+ }
+ // Pure logic available only to a test harness explicitly installed before load.
+ if(typeof window.__TEN_TEST_HOOK__==='function') window.__TEN_TEST_HOOK__({findPair,ensurePair,refill,neighbors,state});
+})();
+</script>
+</body>
+</html>
