@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#fbf7ed">
-<meta name="description" content="ふたつの数字をえらんで10や11〜18をつくろう。時間制限のない、ちいさな計算パズル。">
+<meta name="description" content="10をつくる数字パズルと、さくらんぼ計算でくりあがりを練習する子ども向けゲーム。">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%229%22%20fill%3D%22%23267c72%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E10%3C%2Ftext%3E%3C%2Fsvg%3E">
 <title>10をつくろう！</title>
 <style>
@@ -27,6 +27,44 @@
 .hard-start{display:block;width:100%;min-height:58px;margin-top:14px;border:2px solid #e7b98e;border-radius:19px;background:#fff2e2;color:#754a27;box-shadow:0 4px 0 #e3c19d;font-size:18px;font-weight:900;touch-action:manipulation}.hard-start:active{transform:translateY(3px);box-shadow:0 1px 0 #e3c19d}.hard-start small{display:block;font-size:12px;font-weight:700;line-height:1.2;margin-top:2px}
 .carry-start{display:block;width:100%;min-height:58px;margin-top:14px;border:2px solid #a5cbbb;border-radius:19px;background:#e6f4ec;color:#226459;box-shadow:0 4px 0 #b5d6c8;font-size:18px;font-weight:900;touch-action:manipulation}.carry-start:active{transform:translateY(3px);box-shadow:0 1px 0 #b5d6c8}.carry-start small{display:block;font-size:12px;font-weight:700;line-height:1.2;margin-top:2px}
 .carry-label{font-size:11px;letter-spacing:.04em;color:var(--teal);font-weight:800;text-align:center;margin:0 0 6px}
+
+/* v1.3 — small-screen-friendly cherry decomposition practice */
+.cherry-start{display:block;width:100%;min-height:60px;margin-top:14px;border:2px solid #edb0a3;border-radius:19px;background:#ffebe5;color:#95483f;box-shadow:0 4px 0 #e6b7ac;font-size:18px;font-weight:900}
+.cherry-start:active{transform:translateY(3px);box-shadow:0 1px 0 #e6b7ac}
+.cherry-start small{display:block;font-size:12px;font-weight:700;line-height:1.2;margin-top:2px}
+.cherry .game-head h1{font-size:21px}.cherry .journey{margin-bottom:12px}
+.cherry-math{text-align:center;font-size:34px;font-weight:900;letter-spacing:.045em;margin:6px 0 12px;line-height:1.3}
+.cherry-math span{color:var(--teal)}
+.cherry-steps{display:flex;justify-content:center;gap:4px;margin-bottom:12px;font-size:11px;font-weight:800}
+.cherry-steps span{border-radius:16px;padding:7px 7px;background:#efeee6;color:#8b958c;white-space:nowrap}
+.cherry-steps span.active{background:var(--teal);color:#fff}.cherry-steps span.finished{background:#deeee1;color:#337968}
+.cherry-learning{position:relative;display:flex;align-items:center;flex-direction:column;gap:4px;border:1px solid #e4e8d9;background:#fffdf5;border-radius:24px;padding:15px 10px 13px;min-height:236px}
+.cherry-task{font-size:18px;line-height:1.5;text-align:center;margin:0 0 3px;font-weight:900;max-width:100%}
+.cherry-ten-wrap{display:flex;flex-direction:column;align-items:center;gap:7px}
+.cherry-visual-title{color:var(--muted);font-weight:700;font-size:11px;margin:0}
+.ten-frame{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px;border:2px solid #b5c9bb;border-radius:13px;background:#f8fbf2;width:220px}
+.ten-cell{border-radius:50%;height:23px;width:23px;display:grid;place-items:center;font-size:15px}
+.ten-cell.full{background:#68ad98;color:#fff;box-shadow:0 2px 0 #4b8977}
+.ten-cell.empty{background:white;border:2px dashed #b8c6ba;color:#d1ded2}
+.ten-cell.to-fill{background:#f8dba0;border-color:#efca7d;color:#a27427}
+.ten-cell.hint-cell{outline:3px solid #f3b951;outline-offset:1px}
+.cherry-extra{font-size:14px;color:#ba6d37;font-weight:900;max-width:300px;letter-spacing:.08em;overflow-wrap:anywhere}
+.cherry-branch{position:relative;display:flex;align-items:center;flex-direction:column;gap:0;margin:3px 0 0}
+.cherry-parent{min-width:49px;height:44px;border-radius:14px;background:#f0dbb8;display:grid;place-items:center;font-weight:900;font-size:26px}
+.cherry-lines{width:230px;height:35px;margin:0 auto;display:block}
+.cherry-fruits{width:208px;display:flex;justify-content:space-between;padding:0 16px}
+.cherry-fruits span{display:grid;place-items:center;width:57px;height:56px;border-radius:50%;background:#ed9181;border:2px solid #fff3e4;color:#6a3735;box-shadow:0 3px 0 #d67b75;font-size:28px;font-weight:900}
+.cherry-equation{font-weight:900;font-size:21px;line-height:1.25;margin:7px 0 0;color:var(--teal);letter-spacing:.03em}
+.cherry-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0 8px}
+.cherry-choice{border:2px solid #ffffff99;background:var(--tile);box-shadow:0 4px 0 var(--edge);border-radius:19px;font-weight:900;font-size:31px;min-height:72px;line-height:1.15}
+.cherry-choice.correct{box-shadow:0 3px 0 var(--teal), inset 0 0 0 3px var(--teal)}
+.cherry-choice:active:not(:disabled){transform:translateY(2px)}
+.cherry-feedback{text-align:center;min-height:23px;font-size:13px;line-height:1.5;font-weight:800;color:var(--muted);margin:3px 0 5px}
+.cherry-feedback.retry{color:#b2603b}.cherry-feedback.success{color:var(--teal)}
+.cherry-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cherry-actions .secondary{margin:0}
+@media(max-height:740px) and (max-width:599px){.cherry .journey{margin-bottom:8px}.cherry-math{font-size:29px;margin:2px 0 8px}.cherry-steps{margin-bottom:7px}.cherry-learning{min-height:200px;padding:11px 8px 9px}.cherry-task{font-size:16px}.ten-frame{width:190px;gap:4px;padding:5px}.ten-cell{height:22px;width:22px}.cherry-branch{margin-top:0}.cherry-lines{height:26px}.cherry-fruits span{width:45px;height:45px;font-size:24px}.cherry-parent{height:38px;min-width:42px;font-size:23px}.cherry-equation{margin-top:4px;font-size:18px}.cherry-choices{margin:11px 0 6px}.cherry-choice{min-height:60px;font-size:27px}}
+@media(max-width:350px){.cherry .game-head h1{font-size:18px}.cherry-steps{font-size:10px}.cherry-choice{font-size:24px;min-height:58px}.cherry-learning{padding-left:6px;padding-right:6px}}
 </style>
 </head>
 <body>
@@ -39,10 +77,11 @@
     <div class="sample" aria-label="7 たす 3 は 10"><span class="sample-tile tone-0">7</span><span class="sample-plus">＋</span><span class="sample-tile tone-1">3</span></div>
     <div class="tag"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 5v5l3 2"/></svg>いそがなくて だいじょうぶ</div>
     <button class="primary start" id="start">ふつうで あそぶ</button>
+    <button class="cherry-start" id="cherryStart">🍒 さくらんぼ れんしゅう <small>10を つくって くりあがり！</small></button>
     <button class="carry-start" id="carryStart">くりあがり <small>11〜18 を つくろう</small></button>
     <button class="hard-start" id="hardStart">むずかしい <small>となりの すうじだけ</small></button>
     <p class="under-note">10もん できたら クリア！</p>
-    <p class="tiny-footer">10をつくろう！ · v1.2</p>
+    <p class="tiny-footer">10をつくろう！ · v1.3</p>
   </section>
   <section class="screen game" id="gameScreen" hidden aria-labelledby="gameHeading">
     <div class="game-head"><h1 id="gameHeading">10を つくろう！</h1><div class="scorebox"><span class="score-label">スコア</span><span class="score-value" id="score">0</span></div></div>
@@ -52,18 +91,42 @@
     <div class="game-bottom"><div class="combo-label"><span class="combo-icon" aria-hidden="true">✦</span><span><b class="combo-count" id="combo">0</b> コンボ</span></div><button class="hint-button" id="hint"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 14v-2a5 5 0 1 1 6 0v2zM7 17h6M8 19h4"/></svg>ヒント</button></div>
     <p class="game-foot" id="gameFoot">はなれた すうじも OK ・ えらんだ マスを おすと もどせる</p>
   </section>
+  <section class="screen cherry" id="cherryScreen" hidden aria-labelledby="cherryHeading">
+    <div class="game-head"><h1 id="cherryHeading">🍒 さくらんぼ けいさん</h1><div class="scorebox"><span class="score-label">スコア</span><span class="score-value" id="cherryScore">0</span></div></div>
+    <div class="journey"><div class="journey-top"><span>れんしゅうした かず</span><span><b id="cherryCleared">0</b> / 10もん</span></div><div class="progress-dots" id="cherryProgress" aria-hidden="true"></div></div>
+    <div class="cherry-math" id="cherryMath" aria-live="off">8 ＋ 7 ＝ <span>？</span></div>
+    <div class="cherry-steps" id="cherrySteps" aria-label="さくらんぼの 3つの ステップ"><span>① 10をつくる</span><span>② わける</span><span>③ こたえ</span></div>
+    <div class="cherry-learning">
+      <h2 id="cherryTask" class="cherry-task">あと いくつで 10？</h2>
+      <div class="cherry-ten-wrap" id="cherryTenWrap">
+        <p class="cherry-visual-title" id="cherryVisualTitle">10の はこ</p>
+        <div class="ten-frame" id="cherryTenFrame" role="img" aria-label="10の はこ"></div>
+        <div class="cherry-extra" id="cherryExtra" hidden></div>
+      </div>
+      <div class="cherry-branch" id="cherryBranch" aria-label="すうじを ふたつに わける">
+        <div class="cherry-parent" id="cherryParent">7</div>
+        <svg class="cherry-lines" viewBox="0 0 230 44" preserveAspectRatio="none" aria-hidden="true"><path d="M115 0 L66 40 M115 0 L164 40" stroke="#86aa9d" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+        <div class="cherry-fruits"><span id="cherryLeft">？</span><span id="cherryRight">？</span></div>
+      </div>
+      <p class="cherry-equation" id="cherryEquation">8 ＋ □ ＝ 10</p>
+    </div>
+    <div class="cherry-choices" id="cherryChoices" role="group" aria-label="こたえを えらんでね"></div>
+    <p class="cherry-feedback" id="cherryFeedback" role="status" aria-live="polite">あいている ところを かぞえてみよう</p>
+    <div class="cherry-actions"><button class="hint-button" id="cherryHint" type="button">💡 ヒント</button><button class="secondary" id="cherryExit" type="button">はじめに もどる</button></div>
+  </section>
   <section class="screen result" id="resultScreen" hidden aria-labelledby="resultHeading">
-    <p class="eyebrow" id="resultEyebrow">10こ、できたね！</p><div class="medal" aria-hidden="true">10</div>
+    <p class="eyebrow" id="resultEyebrow">10こ、できたね！</p><div class="medal" id="resultMedal" aria-hidden="true">10</div>
     <h1 id="resultHeading" tabindex="-1">クリア！</h1><p class="result-copy" id="resultCopy">すうじの ペアを<br>いっぱい みつけたね。</p>
-    <div class="result-card"><span class="score-label">こんかいの スコア</span><div class="result-score" id="resultScore">0</div><div class="result-stats"><div><span id="resultSolvedLabel">つくった 10</span><b id="resultSolved">10こ</b></div><div>さいこう コンボ<b id="resultCombo">0</b></div></div></div>
+    <div class="result-card"><span class="score-label">こんかいの スコア</span><div class="result-score" id="resultScore">0</div><div class="result-stats"><div><span id="resultSolvedLabel">つくった 10</span><b id="resultSolved">10こ</b></div><div id="resultComboBox">さいこう コンボ<b id="resultCombo">0</b></div></div></div>
     <button class="primary" id="retry">もういっかい <span aria-hidden="true">↻</span></button><button class="secondary" id="home">はじめに もどる</button>
   </section>
   <noscript>このゲームを あそぶには、ブラウザの JavaScriptを オンにしてください。</noscript>
 </main>
 <script>
-/* 10をつくろう！ v1.2 — dependency-free, offline-ready single HTML.
+/* 10をつくろう！ v1.3 — dependency-free, offline-ready single HTML.
  * Normal: any two distinct tiles totaling 10. Hard: only orthogonally adjacent tiles.
  * Carry: any two tiles totaling the displayed target (11-18), target changes each match.
+ * Cherry: learn make-10, splitting the addend and combining ten with remainder.
  * Points: 100 + 20 * (streak-1), bonus capped at +100. No negative points.
  * Hint preserves streak. Wrong pair resets streak but does not deduct points.
  */
@@ -74,6 +137,7 @@
  const state={board:[],selected:null,locked:false,score:0,combo:0,maxCombo:0,cleared:0,phase:'title',mode:'normal',target:10,nextId:1};
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let audio=null, soundOn=false, hintTimer=null;
+ let cherry=null, cherryTimer=null;
  const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
  const digit=()=>1+Math.floor(Math.random()*9);
  const carryTarget=(previous=null)=>{
@@ -126,7 +190,7 @@
   return {board:next,fromRows,fresh,target:nextTarget};
  }
  function showScreen(name){
-  for(const key of ['title','game','result']) $(key+'Screen').hidden=key!==name;
+  for(const key of ['title','game','cherry','result']) $(key+'Screen').hidden=key!==name;
   state.phase=name;
  }
  function say(text,kind=''){ $('status').textContent=text;$('status').className='status '+kind; }
@@ -172,6 +236,113 @@
   $('carryLabel').hidden=state.mode!=='carry';
   $('board').setAttribute('aria-label',state.mode==='hard'?'4かける4の すうじ。たてか よこに となりあう2枚で10にしよう':state.mode==='carry'?'4かける4の すうじ。ふたつ えらんで、ひょうじされた かずを つくろう':'4かける4の すうじ。ふたつ えらんで10にしよう');
   $('gameFoot').textContent=state.mode==='hard'?'たて・よこで となりの すうじを えらぼう':state.mode==='carry'?'こたえは まいかい かわるよ ・ どこでも OK':'はなれた すうじも OK ・ えらんだ マスを おすと もどせる';
+ }
+ // Cherry calculation is independent of the original 4x4 board.
+ // First make ten, then split the right addend, then add the remainder.
+ function cherryProblem(previous=null,round=0){
+  let a,b;
+  // The first two questions are gentle; later questions use all 6-9 complements.
+  if(round===0) return {a:8,b:5};
+  if(round===1) return {a:9,b:4};
+  do {
+   a=6+Math.floor(Math.random()*4);
+   const min=11-a; // Ensures the sum is 11 or more, and both cherries are nonzero.
+   b=min+Math.floor(Math.random()*(10-min));
+  } while(previous && a===previous.a && b===previous.b);
+  return {a,b};
+ }
+ function makeChoices(correct,minimum,maximum){
+  const choices=[correct];
+  const rest=[];
+  for(let i=minimum;i<=maximum;i++) if(i!==correct) rest.push(i);
+  while(choices.length<4 && rest.length){
+   const j=Math.floor(Math.random()*rest.length);choices.push(rest.splice(j,1)[0]);
+  }
+  // Shuffle button positions, avoiding color-coded digit memorization.
+  for(let i=choices.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[choices[i],choices[j]]=[choices[j],choices[i]];}
+  return choices;
+ }
+ function startCherry(){
+  clearHints();clearTimeout(cherryTimer);document.querySelectorAll('.confetti,.burst-label').forEach(el=>el.remove());
+  Object.assign(state,{selected:null,locked:false,score:0,combo:0,maxCombo:0,cleared:0,mode:'cherry',target:10});
+  $('cherryProgress').replaceChildren(...Array.from({length:GOAL},()=>{const dot=document.createElement('span');dot.className='dot';dot.textContent='✦';return dot;}));
+  cherry={...cherryProblem(null,0),stage:0,wrong:false};
+  showScreen('cherry');renderCherry();play('start');
+ }
+ function renderCherry(){
+  if(state.phase!=='cherry'||!cherry) return;
+  const {a,b,stage}=cherry, need=10-a, rest=b-need;
+  $('cherryHeading').textContent='🍒 さくらんぼ けいさん';
+  $('cherryScore').textContent=state.score.toLocaleString('ja-JP');
+  $('cherryCleared').textContent=state.cleared;
+  [...$('cherryProgress').children].forEach((el,i)=>el.className='dot'+(i<state.cleared?' done':'')+(i===state.cleared-1?' just':''));
+  $('cherryMath').innerHTML=`${a} ＋ ${b} ＝ <span>？</span>`;
+  [...$('cherrySteps').children].forEach((el,i)=>el.className=i===stage?'active':i<stage?'finished':'');
+  $('cherryTask').textContent=stage===0?`${a} は あと いくつで 10？`:stage===1?`${b} を ${need} と いくつに わける？`:`10 ＋ ${rest} は いくつ？`;
+  $('cherryBranch').hidden=stage===0;
+  $('cherryTenWrap').hidden=false;
+  $('cherryVisualTitle').textContent=stage===0?'10の はこ（あきは いくつ？）':stage===1?`${a} と ${need} で 10！`:'10 の まとまり と のこり';
+  const frame=document.createDocumentFragment();
+  for(let i=0;i<10;i++){
+   const circle=document.createElement('span');
+   circle.className='ten-cell '+(stage===2||i<a?'full':'empty');
+   if(stage===1&&i>=a) circle.classList.add('to-fill');
+   circle.textContent=stage===2?'●':i<a?'●':'·';
+   frame.append(circle);
+  }
+  $('cherryTenFrame').replaceChildren(frame);
+  $('cherryTenFrame').setAttribute('aria-label',stage===2?`10こ ぜんぶ うまっている`: `${a}こ うまっていて、${need}こ あいている`);
+  $('cherryExtra').hidden=stage!==2;
+  if(stage===2){$('cherryExtra').textContent=`＋　${'●'.repeat(rest)} （${rest}こ）`;}
+  $('cherryParent').textContent=b;
+  $('cherryLeft').textContent=stage>=1?need:'？';
+  $('cherryRight').textContent=stage>=2?rest:'？';
+  $('cherryEquation').textContent=stage===0?`${a} ＋ □ ＝ 10`:stage===1?`${a} ＋ ${need} ＝ 10`: `10 ＋ ${rest} ＝ □`;
+  const correct=stage===0?need:stage===1?rest:a+b;
+  const options=stage===0?makeChoices(correct,1,5):stage===1?makeChoices(correct,1,9):makeChoices(correct,11,18);
+  const choiceFrag=document.createDocumentFragment();
+  options.forEach((number,i)=>{
+   const button=document.createElement('button');button.type='button';button.className='cherry-choice tone-'+i%4;
+   button.textContent=number;button.setAttribute('aria-label',number+' を えらぶ');
+   button.addEventListener('click',()=>selectCherry(number));choiceFrag.append(button);
+  });
+  $('cherryChoices').replaceChildren(choiceFrag);
+  $('cherryHint').disabled=false;
+  $('cherryFeedback').textContent=stage===0?'あいている ところを かぞえてみよう':stage===1?`${b} は ${need} と いくつ？`:'10 と のこりを あわせよう！';
+  $('cherryFeedback').className='cherry-feedback';
+ }
+ function selectCherry(number){
+  if(state.phase!=='cherry'||!cherry||state.locked) return;
+  const {a,b,stage}=cherry,need=10-a,rest=b-need;
+  const correct=stage===0?need:stage===1?rest:a+b;
+  if(number!==correct){
+   cherry.wrong=true;
+   $('cherryFeedback').textContent='おしい！ もういちど かんがえてみよう';
+   $('cherryFeedback').className='cherry-feedback retry';
+   play('wrong');return;
+  }
+  play('correct');state.locked=true;
+  [...$('cherryChoices').children].forEach(el=>{el.disabled=true;if(Number(el.textContent)===number)el.classList.add('correct');});
+  $('cherryFeedback').className='cherry-feedback success';
+  $('cherryFeedback').textContent=stage===0?`${a} と ${need} で 10！`:stage===1?`${b} は ${need} と ${rest}！`:`10 ＋ ${rest} ＝ ${a+b}！ やったね！`;
+  if(stage===2) $('cherryMath').innerHTML=`${a} ＋ ${b} ＝ <span>${a+b}</span>`;
+  cherryTimer=setTimeout(()=>{
+   if(state.phase!=='cherry') {state.locked=false;return;}
+   if(stage<2){cherry.stage++;state.locked=false;renderCherry();return;}
+   state.cleared++;
+   state.combo++;state.maxCombo=Math.max(state.maxCombo,state.combo);
+   state.score+=100;
+   if(state.cleared>=GOAL){state.locked=false;finish();return;}
+   cherry={...cherryProblem({a,b},state.cleared),stage:0,wrong:false};
+   state.locked=false;renderCherry();
+  },reduced?170:850);
+ }
+ function hintCherry(){
+  if(state.phase!=='cherry'||state.locked||!cherry) return;
+  const {a,b,stage}=cherry, need=10-a,rest=b-need;
+  $('cherryFeedback').className='cherry-feedback success';
+  $('cherryFeedback').textContent=stage===0?`10の はこの あいている マスを かぞえよう`:stage===1?`${b}こ のうち ${need}こ を とったら、のこりは？`:`10の つぎは 11、12… と ${rest}こ かぞえてみよう`;
+  if(stage===0) [...$('cherryTenFrame').children].filter(el=>el.classList.contains('empty')).forEach(el=>el.classList.add('hint-cell'));
  }
  function start(mode=state.mode){
   clearHints();document.querySelectorAll('.confetti,.burst-label').forEach(el=>el.remove());
@@ -232,10 +403,13 @@
  function finish(){
   clearHints();$('resultScore').textContent=state.score.toLocaleString('ja-JP');$('resultCombo').textContent=state.maxCombo+' コンボ';
   const carry=state.mode==='carry';
-  $('resultEyebrow').textContent=carry?'くりあがり 10もん、できたね！':'10こ、できたね！';
-  $('resultCopy').innerHTML=carry?'くりあがりの けいさんを<br>いっぱい がんばったね。':'すうじの ペアを<br>いっぱい みつけたね。';
-  $('resultSolvedLabel').textContent=carry?'といた もんだい':'つくった 10';
-  $('resultSolved').textContent=carry?'10もん':'10こ';
+  const isCherry=state.mode==='cherry';
+  $('resultEyebrow').textContent=isCherry?'さくらんぼ 10もん、できたね！':carry?'くりあがり 10もん、できたね！':'10こ、できたね！';
+  $('resultCopy').innerHTML=isCherry?'10を つくって かぞえるの、<br>じょうずに できたね！':carry?'くりあがりの けいさんを<br>いっぱい がんばったね。':'すうじの ペアを<br>いっぱい みつけたね。';
+  $('resultMedal').textContent=isCherry?'🍒':'10';
+  $('resultComboBox').hidden=isCherry;
+  $('resultSolvedLabel').textContent=isCherry?'さくらんぼ':carry?'といた もんだい':'つくった 10';
+  $('resultSolved').textContent=carry||isCherry?'10もん':'10こ';
   showScreen('result');$('resultHeading').focus({preventScroll:true});play('finish');
   if(reduced) return;
   for(let i=0;i<30;i++){
@@ -254,7 +428,7 @@
    notes.forEach((freq,i)=>{const osc=audio.createOscillator(),gain=audio.createGain(),time=now+i*.085;osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(0,time);gain.gain.linearRampToValueAtTime(.06,time+.012);gain.gain.exponentialRampToValueAtTime(.001,time+.18);osc.connect(gain);gain.connect(audio.destination);osc.start(time);osc.stop(time+.2);});
   }catch(_){/* Audio must never stop a round. */}
  }
- $('start').addEventListener('click',()=>start('normal'));$('carryStart').addEventListener('click',()=>start('carry'));$('hardStart').addEventListener('click',()=>start('hard'));$('retry').addEventListener('click',()=>start());$('hint').addEventListener('click',hint);
+ $('start').addEventListener('click',()=>start('normal'));$('carryStart').addEventListener('click',()=>start('carry'));$('hardStart').addEventListener('click',()=>start('hard'));$('cherryStart').addEventListener('click',startCherry);$('cherryHint').addEventListener('click',hintCherry);$('cherryExit').addEventListener('click',()=>{clearTimeout(cherryTimer);state.locked=false;showScreen('title');});$('retry').addEventListener('click',()=>state.mode==='cherry'?startCherry():start());$('hint').addEventListener('click',hint);
  $('home').addEventListener('click',()=>{showScreen('title');$('start').focus({preventScroll:true});});
  $('sound').addEventListener('click',()=>{soundOn=!soundOn;$('sound').setAttribute('aria-pressed',String(soundOn));$('sound').setAttribute('aria-label',soundOn?'おとを けす':'おとを つける');$('soundLabel').textContent=soundOn?'おと ON':'おと OFF';if(soundOn)play('tap');});
  // Optional browser-native agent interface. Safari simply skips this block.
@@ -270,7 +444,7 @@
   addEventListener('pagehide',event=>{if(!event.persisted)lifecycle.abort();},{once:true});
  }
  // Pure logic available only to a test harness explicitly installed before load.
- if(typeof window.__TEN_TEST_HOOK__==='function') window.__TEN_TEST_HOOK__({findPair,ensurePair,refill,neighbors,state});
+ if(typeof window.__TEN_TEST_HOOK__==='function') window.__TEN_TEST_HOOK__({findPair,ensurePair,refill,neighbors,state,startCherry,cherryProblem});
 })();
 </script>
 </body>
